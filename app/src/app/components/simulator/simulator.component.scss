@@ -67,3 +67,11 @@
         }
     }
 }
+
+@media only screen and (max-width: 768px) {
+    .pop-simulator {
+        padding: 30px;
+
+        width: 330px;
+    }
+}
