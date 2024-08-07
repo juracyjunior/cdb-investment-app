@@ -1,0 +1,46 @@
+<section class="simulator">
+    <div class="pop-simulator">
+        <h1>Simulador de Investimento CDB</h1>
+        <div class="field">
+            <label>Valor</label>
+            <input currencyMask [(ngModel)]="value" />
+            <div class="feedback" *ngIf="!feedback.value.valid">
+                {{ feedback.value.message }}
+            </div>
+        </div>
+        <div class="field">
+            <label>Meses</label>
+            <input type="number" mask="99" max="12" min="2" [(ngModel)]="months" />
+            <div class="feedback" *ngIf="!feedback.months.valid">
+                {{ feedback.months.message }}
+            </div>
+        </div>
+
+        <button type="button" (click)="calculate()" [disabled]="calculating">
+            {{ calculating ? 'Calculando...' : 'Calcular' }}
+        </button>
+
+        <div class="error-message" *ngIf="calculateErroMessage !== ''">
+            {{ calculateErroMessage }}
+        </div>
+
+        <div class="result" *ngIf="cdb">
+            <h2>Resultado do Investimento</h2>
+
+            <table border="0" cellPadding="0" cellSpacing="0">
+                <tr>
+                    <td class="label">Valor Investido</td>
+                    <td class="value">{{ (cdb.value * cdb.months) | currency : 'R$' }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Valor Bruto</td>
+                    <td class="value">{{ cdb.grossValue | currency : 'R$' }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Valor Líquido</td>
+                    <td class="value">{{ cdb.netValue | currency : 'R$' }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>
