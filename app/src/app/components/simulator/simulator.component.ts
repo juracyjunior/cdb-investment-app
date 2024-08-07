@@ -50,7 +50,7 @@ export class SimulatorComponent {
     })
   }
 
-  private validate() {
+  validate() {
     let result = true;
 
     this.clearFeedback();

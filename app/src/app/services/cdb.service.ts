@@ -15,7 +15,7 @@ export class CdbService {
   ) { }
 
   public simulate(value: number, months: number) : Observable<CDB> {
-    let url = `${this.urlBase}cdb/simulate?value=${value}&months=${months}`;
+    let url = `${this.urlBase}/simulate?value=${value}&months=${months}`;
 
     return this.http.get<CDB>(url);
   }
