@@ -50,7 +50,7 @@ jobs:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-nuget-
+            ${{ runner.os }}-nuget-cdb-investment-api
 
       - name: Build with dotnet
         run: dotnet build api/src/CDBInvestmentApi/CDBInvestment.Api.csproj --configuration Release
