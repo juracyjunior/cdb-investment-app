@@ -40,4 +40,4 @@ jobs:
           app_location: "/app" # Location of your Angular project
           output_location: "dist/cdbinvestment-app/browser"
           app_build_command: 'npm run build --prod'
-          routes_location: "./app/staticwebapp.config.json"
+          config_file_location: "staticwebapp.config.json"
