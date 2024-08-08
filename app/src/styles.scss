@@ -56,6 +56,12 @@ button {
 
         border-bottom: 3px solid rgba(0,0,0,0.2);
     }
+
+    &.small {
+        font-size: 10pt;
+
+        padding: 8px 10px;
+    }
 }
 
 h1 {
