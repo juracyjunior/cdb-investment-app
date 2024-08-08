@@ -13,14 +13,7 @@ export class SimulatorComponent {
   calculating = false;
   calculateErroMessage = '';
   cdb?: CDB;
-  history: CDB[] = [
-    {
-      value: 1,
-      months: 2,
-      grossValue: 1000,
-      netValue: 999
-    }
-  ];
+  history: CDB[] = [];
   feedback = {
     value: {
       valid: false,
