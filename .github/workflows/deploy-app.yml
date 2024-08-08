@@ -39,4 +39,5 @@ jobs:
           action: "upload"
           app_location: "/app" # Location of your Angular project
           output_location: "dist/cdbinvestment-app"
+          app_build_command: 'npm run build --prod'
           node_version: '18'
