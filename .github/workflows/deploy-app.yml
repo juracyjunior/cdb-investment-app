@@ -11,9 +11,9 @@ jobs:
   build_and_deploy_job:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    name: Build and Deploy to Azure Static Web App
+    name: Build and Deploy
     steps:
-      - name: Checkout repository content
+      - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Set up Node.js
@@ -26,12 +26,12 @@ jobs:
             cd app
             npm install
 
-      - name: Build Angular application
+      - name: Build
         run: |
             cd app
             npm run build --prod
 
-      - name: Deploy to Azure Static Web App
+      - name: Deploy to Azure
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
@@ -39,3 +39,4 @@ jobs:
           action: "upload"
           app_location: "/app" # Location of your Angular project
           output_location: "dist/cdbinvestment-app"
+          node_version: '18'
