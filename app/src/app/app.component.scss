@@ -1,0 +1,37 @@
+.container {
+    align-items: stretch;
+
+    bottom: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    left: 0;
+
+    position: fixed;
+
+    right: 0;
+
+    top: 0;
+
+    .application {
+        display: flex;
+        
+        flex: 1;
+
+        overflow-y: auto;
+    }
+
+    .version {
+        background-color: rgba(255, 255, 255, 0.8);
+
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+        font-size: 9pt;
+
+        padding: 7px 5px;
+
+        text-align: right;
+    }
+}

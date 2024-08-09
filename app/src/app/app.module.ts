@@ -9,13 +9,15 @@ import { FormsModule } from '@angular/forms';
 import { NgxCurrencyDirective, NgxCurrencyInputMode, provideEnvironmentNgxCurrency } from 'ngx-currency';
 import localePt from '@angular/common/locales/pt';
 import { HttpClientModule } from '@angular/common/http';
+import { HistoryComponent } from './components/history/history.component';
 
 registerLocaleData(localePt, 'pt');
 
 @NgModule({
   declarations: [
     AppComponent,
-    SimulatorComponent
+    SimulatorComponent,
+    HistoryComponent
   ],
   imports: [
     CommonModule,

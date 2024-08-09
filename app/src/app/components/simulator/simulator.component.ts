@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CdbService } from '../../services/cdb.service';
 import { CDB } from '../../models/cdb.model';
+import { HistoryComponent } from '../history/history.component';
 
 @Component({
   selector: 'app-simulator',
@@ -8,12 +9,12 @@ import { CDB } from '../../models/cdb.model';
   styleUrl: './simulator.component.scss'
 })
 export class SimulatorComponent {
+  @ViewChild('history') historyComponent!: HistoryComponent;
   value: number = 0;
   months: number = 0;
   calculating = false;
   calculateErroMessage = '';
   cdb?: CDB;
-  history: CDB[] = [];
   feedback = {
     value: {
       valid: false,
@@ -25,9 +26,7 @@ export class SimulatorComponent {
     }
   };
 
-  constructor(private service: CdbService) {
-    this.loadHistory();
-  }
+  constructor(private service: CdbService) { }
 
   calculate() {
     this.calculateErroMessage = '';
@@ -41,7 +40,7 @@ export class SimulatorComponent {
       next: (value) => {
         this.cdb = value;
 
-        this.setHistory(value);
+        this.historyComponent.setHistory(value);
         
         this.calculating = false;
       },
@@ -82,24 +81,5 @@ export class SimulatorComponent {
 
     this.feedback.months.valid = true;
     this.feedback.months.message = '';
-  }
-
-  setHistory(cdb: CDB) {
-    this.history.splice(0, 0, cdb);
-
-    localStorage.setItem('history', JSON.stringify(this.history));
-  }
-
-  loadHistory() {
-    var historyStorage = localStorage.getItem('history');
-
-    if (historyStorage !== null && historyStorage !== '') {
-      this.history = JSON.parse(historyStorage);
-    }
-  }
-
-  clearHistory() {
-    this.history = [];
-    localStorage.removeItem('history');
   }
 }
