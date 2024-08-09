@@ -1,0 +1,43 @@
+name: Build & Deploy APP
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches: [ "main" ]
+
+jobs:
+  build_and_deploy_job:
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    name: Build and Deploy
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+            cd app
+            npm install
+
+      - name: Build
+        run: |
+            cd app
+            npm run build --prod
+
+      - name: Deploy to Azure
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for GitHub integrations (not required for API token)
+          action: "upload"
+          app_location: "/app" # Location of your Angular project
+          output_location: "dist/cdbinvestment-app/browser"
+          app_build_command: 'npm run build --prod'
+          config_file_location: "/app"

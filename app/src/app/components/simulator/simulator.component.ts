@@ -13,6 +13,7 @@ export class SimulatorComponent {
   calculating = false;
   calculateErroMessage = '';
   cdb?: CDB;
+  history: CDB[] = [];
   feedback = {
     value: {
       valid: false,
@@ -24,7 +25,9 @@ export class SimulatorComponent {
     }
   };
 
-  constructor(private service: CdbService) { }
+  constructor(private service: CdbService) {
+    this.loadHistory();
+  }
 
   calculate() {
     this.calculateErroMessage = '';
@@ -37,6 +40,8 @@ export class SimulatorComponent {
     this.service.simulate(this.value, this.months).subscribe({
       next: (value) => {
         this.cdb = value;
+
+        this.setHistory(value);
         
         this.calculating = false;
       },
@@ -77,5 +82,24 @@ export class SimulatorComponent {
 
     this.feedback.months.valid = true;
     this.feedback.months.message = '';
+  }
+
+  setHistory(cdb: CDB) {
+    this.history.splice(0, 0, cdb);
+
+    localStorage.setItem('history', JSON.stringify(this.history));
+  }
+
+  loadHistory() {
+    var historyStorage = localStorage.getItem('history');
+
+    if (historyStorage !== null && historyStorage !== '') {
+      this.history = JSON.parse(historyStorage);
+    }
+  }
+
+  clearHistory() {
+    this.history = [];
+    localStorage.removeItem('history');
   }
 }

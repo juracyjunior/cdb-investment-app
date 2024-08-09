@@ -41,3 +41,8 @@ Para executar o WebApp, siga os passos:
 Testes:
 - Na API execute os testes, utilizando o Explorador de Testes no Visual Studio.
 - Na WebApp, no Terminal execute o comando ng test.
+
+## Links
+
+- Front-end (Aplicação) - https://cdb-investment.juracyjunior.com
+- Back-end (Api) - https://cdb-investment-api-ddd3e8h9heggfuhx.eastus-01.azurewebsites.net/api

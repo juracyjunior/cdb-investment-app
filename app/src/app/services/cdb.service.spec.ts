@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CdbService } from './cdb.service';
-import { environment } from '../../environments/environments';
+import { environment } from '../../environments/environment';
 import { CDB } from '../models/cdb.model';
 
 describe('CdbService', () => {

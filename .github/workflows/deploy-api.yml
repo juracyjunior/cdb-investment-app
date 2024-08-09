@@ -1,0 +1,78 @@
+name: Build & Deploy API
+
+env:
+  AZURE_WEBAPP_NAME: cdb-investment-api  # set this to the name of your Azure Web App
+  AZURE_WEBAPP_PACKAGE_PATH: '.'         # set this to the path to your web app project, defaults to the repository root
+  DOTNET_VERSION: '8'                    # set this to the .NET Core version to use
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Set up dependency caching for faster builds
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-cdb-investment-api
+
+      - name: Build with dotnet
+        run: dotnet build api/src/CDBInvestmentApi/CDBInvestment.Api.csproj --configuration Release
+
+      - name: dotnet publish
+        run: dotnet publish api/src/CDBInvestmentApi/CDBInvestment.Api.csproj -c Release -o ${{env.DOTNET_ROOT}}/cdb-investment-api
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v3
+        with:
+          name: .net-app
+          path: ${{env.DOTNET_ROOT}}/cdb-investment-api
+
+  deploy:
+    permissions:
+      contents: none
+      id-token: write
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: .net-app
+
+      - name: Azure Login
+        uses: Azure/login@v2.1.0
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_9FD73560D99E44C88B5D3171FCB20A9A }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_20AB011A141A406C838E31D52F386677 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_7EC39370A7384E73B40A172C9DD4416C }}
+          auth-type: 'SERVICE_PRINCIPAL'
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}

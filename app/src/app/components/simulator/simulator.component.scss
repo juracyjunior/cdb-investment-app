@@ -1,11 +1,13 @@
-.simulator {
-    align-items: center;
+.container {
+    align-items: stretch;
 
     bottom: 0;
 
     display: flex;
 
-    justify-content: center;
+    flex-direction: row;
+
+    //justify-content: center;
 
     left: 0;
 
@@ -16,7 +18,17 @@
     top: 0;
 }
 
-.pop-simulator {
+.simulator {
+    align-items: center;
+
+    display: flex;
+
+    justify-content: center;
+
+    flex: 1;
+}
+
+.form {
     background-color: #fff;
 
     border-radius: 20px;
@@ -64,6 +76,65 @@
             &.value {
                 text-align: right;
             }
+        }
+    }
+}
+
+.history {
+    background-color: rgba(0,0,0,0.05);
+
+    overflow-y: auto;
+
+    padding: 10px;
+
+    width: 400px - 20px;
+
+    button {
+        position: absolute;
+
+        right: 10px;
+
+        top: 6px;
+    }
+
+    ul {
+        list-style-type: none;
+
+        margin: 0;
+
+        padding: 0;
+
+        li {
+            background-color: #fff;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+
+            padding: 15px 20px;
+
+            div {
+                display: flex;
+
+                flex-direction: row;
+
+                margin: 8px 0;
+            }
+        }
+
+        label {
+            display: block;
+
+            flex: 1;
+
+            font-size: 11pt;
+            font-weight: bold;
+
+            text-transform: uppercase;
+        }
+
+        span {
+            font-size: 11pt;
         }
     }
 }
