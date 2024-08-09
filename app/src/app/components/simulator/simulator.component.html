@@ -47,35 +47,6 @@
     </div>
 
     <div class="history">
-        <h2>Histórico de Cálculos</h2>
-        <button class="small" (click)="clearHistory()">Limpar</button>
-        <ul>
-            <li *ngFor="let his of history">
-                <div>
-                    <label>Investimento Mensal</label>
-                    <span>{{ his.value | currency : 'R$' }}</span>
-                </div>
-
-                <div>
-                    <label>Meses</label>
-                    <span>{{ his.months }}</span>
-                </div>
-
-                <div>
-                    <label>Total Investimento</label>
-                    <span>{{ his.value * his.months | currency : 'R$' }}</span>
-                </div>
-
-                <div>
-                    <label>Valor Bruto</label>
-                    <span>{{ his.grossValue | currency : 'R$' }}</span>
-                </div>
-
-                <div>
-                    <label>Valor Líquido</label>
-                    <span>{{ his.netValue | currency : 'R$' }}</span>
-                </div>
-            </li>
-        </ul>
+        <app-history #history></app-history>
     </div>
 </section>
