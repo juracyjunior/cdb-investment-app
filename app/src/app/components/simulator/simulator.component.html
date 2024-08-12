@@ -47,6 +47,8 @@
         </div>
     </div>
 
+    <div class="bkg-history" *ngIf="isMobile && showHistory"></div>
+
     <div class="history" [ngClass]="{ 'is-mobile': isMobile }" *ngIf="!isMobile || (isMobile && showHistory)">
         <button class="btn-close-history" (click)="toggleHistory()" *ngIf="isMobile">X</button>
         <app-history #history></app-history>
