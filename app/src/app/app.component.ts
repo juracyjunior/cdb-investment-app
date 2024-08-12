@@ -7,6 +7,6 @@ import { environment } from '../environments/environment';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'CDB Investment';
+  title = 'CDB Investment Simulator';
   env = environment;
 }
