@@ -1,5 +1,6 @@
 <section class="container">
     <div class="simulator">
+        <button class="small btn-open-history" (click)="toggleHistory()" *ngIf="isMobile && showButtonOpenHistory && !showHistory">Histórico</button>
         <div class="form">
             <h1>Simulador de Investimento CDB</h1>
             <div class="field">
@@ -46,7 +47,8 @@
         </div>
     </div>
 
-    <div class="history">
+    <div class="history" [ngClass]="{ 'is-mobile': isMobile }" *ngIf="!isMobile || (isMobile && showHistory)">
+        <button class="btn-close-history" (click)="toggleHistory()" *ngIf="isMobile">X</button>
         <app-history #history></app-history>
     </div>
 </section>

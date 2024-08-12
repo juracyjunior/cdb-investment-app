@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { CdbService } from '../../services/cdb.service';
 import { CDB } from '../../models/cdb.model';
 import { HistoryComponent } from '../history/history.component';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-simulator',
@@ -25,8 +26,18 @@ export class SimulatorComponent {
       message: ''
     }
   };
+  isMobile = false;
+  showButtonOpenHistory = false;
+  showHistory = true;
 
-  constructor(private service: CdbService) { }
+  constructor(
+    private service: CdbService,
+    private deviceService: DeviceDetectorService
+  ) {
+    this.isMobile = deviceService.isMobile();
+    this.showButtonOpenHistory = this.isMobile;
+    this.showHistory = !this.isMobile;
+  }
 
   calculate() {
     this.calculateErroMessage = '';
@@ -81,5 +92,9 @@ export class SimulatorComponent {
 
     this.feedback.months.valid = true;
     this.feedback.months.message = '';
+  }
+
+  toggleHistory() {
+    this.showHistory = !this.showHistory;
   }
 }

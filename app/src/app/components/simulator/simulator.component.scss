@@ -11,8 +11,6 @@
 
     left: 0;
 
-    //position: fixed;
-
     right: 0;
 
     top: 0;
@@ -26,18 +24,24 @@
     justify-content: center;
 
     flex: 1;
+
+    &.is-mobile {
+        display: block;
+
+        flex: none;
+    }
 }
 
 .form {
     background-color: #fff;
 
-    border-radius: 20px;
+    border-radius: 15px;
 
     box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 
-    padding: 40px;
+    padding: 25px;
 
-    width: 500px;
+    width: 350px;
 }
 
 .field {
@@ -81,13 +85,48 @@
 }
 
 .history {
-    background-color: rgba(0,0,0,0.05);
+    background-color: #E5E5E5;
 
     overflow-y: auto;
 
     padding: 10px;
 
-    width: 400px - 20px;
+    width: 300px - 20px;
+
+    &.is-mobile {
+        bottom: 0;
+
+        position: fixed;
+
+        right: 0;
+
+        top: 0;
+    }
+}
+
+.btn-open-history {
+    padding: 8px 12px;
+
+    position: fixed;
+
+    right: 5px;
+
+    top: 5px;
+}
+
+.btn-close-history {
+    border-radius: 50%;
+
+    height: 34px;
+
+    margin-left: -48px;
+    margin-top: -5px;
+
+    padding: 8px 12px;
+
+    position: fixed;
+
+    width: 34px;
 }
 
 @media only screen and (max-width: 768px) {
